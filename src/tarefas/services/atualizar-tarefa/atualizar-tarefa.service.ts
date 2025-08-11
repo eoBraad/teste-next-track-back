@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Tarefa } from '@prisma/client';
 import { PrismaService } from 'src/services/prisma.service';
-import { AtualizarTarefaDto } from '../Dtos/atualizarTarefa';
+import { AtualizarTarefaDto } from '../../Dtos/atualizarTarefa';
 
 @Injectable()
 export class AtualizarTarefaService {

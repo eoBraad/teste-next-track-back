@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/services/prisma.service';
-import { CriarTarefaDto } from '../Dtos/criarTarefaDto';
+import { CriarTarefaDto } from '../../Dtos/criarTarefaDto';
 import { Tarefa } from '@prisma/client';
 
 @Injectable()
