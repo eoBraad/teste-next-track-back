@@ -24,8 +24,8 @@ model Tarefa {
 model Subtarefa {
   id          Int      @id @default(autoincrement())
   titulo      String
-  descricao   String?
+  concluida   Boolean  @default(false)
   dataCriacao DateTime @default(now())
   tarefa_Id   Int
-  tarefa      Tarefa   @relation(fields: [tarefa_Id], references: [id])
+  tarefa      Tarefa   @relation(fields: [tarefa_Id], references: [id], onDelete: Cascade)
 }
