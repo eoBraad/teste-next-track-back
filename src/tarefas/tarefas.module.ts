@@ -5,11 +5,22 @@ import { ListarTarefasService } from './services/listar-tarefas/listar-tarefas.s
 import { AtualizarTarefaService } from './services/atualizar-tarefa/atualizar-tarefa.service';
 import { PrismaService } from 'src/services/prisma.service';
 import { AppModule } from 'src/app.module';
+import { DeletarTarefaService } from './services/deletar-tarefa/deletar-tarefa.service';
 
 @Module({
-  providers: [criarTarefaService, ListarTarefasService, AtualizarTarefaService],
+  providers: [
+    criarTarefaService,
+    ListarTarefasService,
+    AtualizarTarefaService,
+    DeletarTarefaService,
+  ],
   controllers: [TarefasController],
-  exports: [criarTarefaService, ListarTarefasService, AtualizarTarefaService],
+  exports: [
+    criarTarefaService,
+    ListarTarefasService,
+    AtualizarTarefaService,
+    DeletarTarefaService,
+  ],
   imports: [forwardRef(() => AppModule)],
 })
-export class TarefasModule { }
+export class TarefasModule {}
