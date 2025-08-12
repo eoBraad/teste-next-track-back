@@ -14,7 +14,6 @@ import { ListarTarefasService } from './services/listar-tarefas/listar-tarefas.s
 import { AtualizarTarefaDto } from './Dtos/atualizarTarefa';
 import { AtualizarTarefaService } from './services/atualizar-tarefa/atualizar-tarefa.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Tarefa } from '@prisma/client';
 import { DeletarTarefaService } from './services/deletar-tarefa/deletar-tarefa.service';
 
 @ApiTags('tarefas')
@@ -64,7 +63,7 @@ export class TarefasController {
   @ApiOperation({ summary: 'Deletar uma tarefa' })
   @Delete('/:id')
   async deletarTarefa(@Param('id') id: string, @Res() res) {
-    await this.deletarTarefaService.criarTarefa(parseInt(id));
+    await this.deletarTarefaService.deletar(parseInt(id));
     return res.status(200).json({ message: 'Tarefa deletada com sucesso' });
   }
 }

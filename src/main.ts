@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import open from 'open';
+import { AllExceptionsFilter } from './filters/exceptionFilter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,7 +15,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('API de Gestão de Tarefas')
-    .setDescription('Documentação da API de gestão de tarefas utilizando NestJS e Prisma')
+    .setDescription(
+      'Documentação da API de gestão de tarefas utilizando NestJS e Prisma',
+    )
     .setVersion('1.0')
     .addTag('tarefas')
     .build();
@@ -22,7 +25,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
 
-  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalFilters(new AllExceptionsFilter());
   await app.listen(process.env.PORT ?? 3000);
 
   await open(app.getHttpServer() + '/api-docs');

@@ -1,13 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/services/prisma.service';
-import { CriarTarefaDto } from '../../Dtos/criarTarefaDto';
-import { Tarefa } from '@prisma/client';
 
 @Injectable()
 export class DeletarTarefaService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async criarTarefa(id: number): Promise<void> {
+  async deletar(id: number): Promise<void> {
+    const tarefaExistente = await this.prismaService.tarefa.count({
+      where: { id: id },
+    });
+
+    if (tarefaExistente === 0) {
+      throw new NotFoundException('Tarefa não encontrada');
+    }
     await this.prismaService.tarefa.delete({
       where: { id: id },
     });

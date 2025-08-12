@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Tarefa } from '@prisma/client';
 import { PrismaService } from 'src/services/prisma.service';
 import { AtualizarTarefaDto } from '../../Dtos/atualizarTarefa';
@@ -8,7 +8,14 @@ export class AtualizarTarefaService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async atualizarTarefa(id: number, data: AtualizarTarefaDto): Promise<Tarefa> {
-    console.log(id, data);
+    const tarefaExistente = await this.prismaService.tarefa.count({
+      where: { id: id },
+    });
+
+    if (tarefaExistente === 0) {
+      throw new NotFoundException('Tarefa não encontrada');
+    }
+
     return this.prismaService.tarefa.update({
       where: { id: id },
       data: {
